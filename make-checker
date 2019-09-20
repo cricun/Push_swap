@@ -1,0 +1,43 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: djon-con <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/04/10 19:23:11 by djon-con          #+#    #+#              #
+#    Updated: 2019/06/13 18:30:07 by djon-con         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = checker
+SRC = checker.c \
+	  utils.c \
+	  get_args.c \
+	  get_instructions.c \
+	  apply_instructions.c \
+	  stack_ops.c \
+	  print_stacks.c
+HEADER_PATH = libft/includes/
+HEADER = $(addprefix $(HEADER_PATH), libft.h get_next_line.h ft_printf.h float.h) push.h
+FLAGS = -I $(HEADER_PATH)
+LIB = libft/libft.a
+OBJ = $(SRC:.c=.o)
+
+.PHONY: clean fclean re
+
+all: $(NAME)
+   
+$(NAME): $(OBJ)
+	gcc $(LIB) $(OBJ) -o $(NAME)
+
+%.o: %.c $(HEADER)
+	gcc $(FLAGS) -c $< -o $@
+
+clean:
+	@rm -f $(OBJ)
+
+fclean: clean
+	@rm -f $(NAME)
+
+re: fclean all
